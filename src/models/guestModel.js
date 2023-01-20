@@ -1,21 +1,27 @@
 const mongoose = require('mongoose');
+const eventModel = require('./eventModel')
 
 const guest = mongoose.Schema({
     eventid:{
       type: mongoose.Schema.Types.ObjectId,
       ref: eventModel,
     },
+
+    phoneNumber:{
+     type:Number
+    },
+
     name:{
         type:String,
-        required:true,
+     //    required:true,
     },
     email:{
         type:String,
-        required:true,
+     //    required:true,
     },
     numberOfPeople:{
         type:Number,
-        required:true,
+     //    required:true,
     },
     namesOfPeople:[{
         type:String,

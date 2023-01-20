@@ -20,7 +20,9 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.use("/api", require("./src/routes/userRoutes"));
+app.use("/api/user", require("./src/routes/userRoutes"));
+app.use("/api/event", require("./src/routes/eventRoutes"));
+app.use("/api/guest", require("./src/routes/guestRoutes"));
 
 
 app.listen(port, () => {
