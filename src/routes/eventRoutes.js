@@ -13,10 +13,10 @@ router.route('/view/:id')
         .get(fetchuser,viewEvent)
 
 router.route('/edit/:id')
-        .post(fetchuser,editEvent)
+        .put(fetchuser,editEvent)
 
 router.route('/delete/:id')
-        .post(fetchuser,deleteEvent)
+        .delete(fetchuser,deleteEvent)
 
  
 module.exports = router;

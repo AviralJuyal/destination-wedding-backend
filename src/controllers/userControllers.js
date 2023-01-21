@@ -10,7 +10,7 @@ exports.createUser = async (req,res)=>{
         let user = await userModel.findOne({username:req.body.username });
 
         if(user)
-            return res.status(400).json({error:"Sorry , A user already exists"})
+            return res.status(400).json({success:false,error:"Sorry , A user already exists"})
         
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
@@ -39,12 +39,12 @@ exports.loginUser = async (req,res)=>{
     try {
         let user = await userModel.findOne({email:req.body.email});
         if(!user)
-            return res.status(404).json({error:'Please Enter correct credentials '});
+            return res.status(404).json({success:false,error:'Please Enter correct credentials '});
         
         let pass = await bcrypt.compare(req.body.password, user.password);
         
         if(!pass)
-            return res.status(404).json({error:'Please Enter correct credetials'});
+            return res.status(404).json({success:false,error:'Please Enter correct credetials'});
 
         const data = {
             user:{
@@ -53,12 +53,28 @@ exports.loginUser = async (req,res)=>{
         }
         const authToken = jwt.sign(data , jwt_token);
         success= true;
-        res.json({success , authToken})
+        res.json({success , authToken, user})
 
         
     } catch (error) {
         console.log(error);
-        res.status(500).send("some error occured");
+        success=false;
+        res.status(500).send(success , "some error occured");
+
+    }
+}
+exports.User = async (req,res)=>{
+    try {
+        console.log(req.user.id)
+        let user = await userModel.findById(req.user.id);
+        if(!user) return res.status(404).send({success:false, msg:'user not found!'})
+        res.json({success:true ,  user})
+
+        
+    } catch (error) {
+        console.log(error);
+        success=false;
+        res.status(500).send(success , "some error occured");
 
     }
 }

@@ -1,5 +1,5 @@
 const express = require("express");
-const { addGuest , editGuest , deleteGuest , viewGuest , viewAllGuest} = require("../controllers/guestControllers");
+const { addGuest , editGuest , deleteGuest , viewGuest , viewAllGuest , editGuestAdmin , adhaarUpload} = require("../controllers/guestControllers");
 const { fetchuser} = require("../middleware/fetchuser");
 const router = express.Router();
 
@@ -13,10 +13,15 @@ router.route('/view/:id')
         .get(fetchuser,viewGuest)
 
 router.route('/edit/:id')
-        .post(editGuest)
+        .patch(editGuest)
+        .put(fetchuser,editGuestAdmin)
 
 router.route('/delete/:id')
-        .post(fetchuser,deleteGuest)
+        .delete(fetchuser,deleteGuest)
+
+router.route('/adhaar')
+        .post(adhaarUpload)
+
 
  
 module.exports = router;
