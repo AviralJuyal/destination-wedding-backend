@@ -14,9 +14,12 @@ exports.editGuest = async(req,res)=>{
     try {
         let guest = await guestModel.findById(req.params.id);
         if(!guest)return res.status(404).send("Not Found !!");
-
+        
+        guest = await guestModel.find({phoneNumber:req.body.phoneNumber});
+        if(!guest)return res.status(404).send("Phone Number Not Found !!");
+    
         guest = await guestModel.findByIdAndUpdate(req.params.id , req.body);
-        res.json(guest );
+        res.json(guest);
 
     } catch (error) {
         console.log(error)

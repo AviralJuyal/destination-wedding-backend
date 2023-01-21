@@ -15,7 +15,7 @@ exports.createUser = async (req,res)=>{
         const salt = await bcrypt.genSalt(10);
         const secPass = await bcrypt.hash(req.body.password, salt);
         user = await userModel.create({
-            username:req.body.username,
+            ...req.body,
             password:secPass,
         });
 
@@ -37,7 +37,7 @@ exports.createUser = async (req,res)=>{
 
 exports.loginUser = async (req,res)=>{
     try {
-        let user = await userModel.findOne({username:req.body.username});
+        let user = await userModel.findOne({email:req.body.email});
         if(!user)
             return res.status(404).json({error:'Please Enter correct credentials '});
         
