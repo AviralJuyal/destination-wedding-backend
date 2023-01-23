@@ -3,6 +3,7 @@ const multer = require("multer");
 // const path = require('path');
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
+const eventModel = require('../models/eventModel');
 
 
 const s3 = new AWS.S3({
@@ -72,16 +73,16 @@ exports.addGuest= async(req,res)=>{
 
 exports.editGuest = async(req,res)=>{
     try {
-        let guest = await guestModel.find({eventid:req.params.id});
-        if(!guest)return res.status(404).send({success:false , msg:"Not Found !!"});
+        let event = await eventModel.findById(req.params.id);
+        if(!event)return res.status(404).send({success:false , msg:"Event Not Found !!"});
         
-        guest = await guestModel.find({phoneNumber:req.body.phoneNumber});
+        let guest = await guestModel.find({eventid:req.params.id,phoneNumber:req.body.phoneNumber});
         if(!guest)return res.status(404).send({success:false , msg:"Phone Number Not Found !!"});
         
         const { email , numberOfPeople  ,peopleDetails, travelItinerary , photoId , driverStay , driver}= req.body;
 
-        guest = await guestModel.findOneAndUpdate({eventid:req.params.id },{peopleDetails, email , numberOfPeople , travelItinerary:travelItinerary.videoUrl , photoId , driver  , driverStay } );
-        res.json({success:true , guest});
+        guest = await guestModel.findOneAndUpdate({eventid:req.params.id,phoneNumber:req.body.phoneNumber},{peopleDetails, email ,rsvp : true, numberOfPeople , travelItinerary:travelItinerary.videoUrl , photoId , driver  , driverStay } );
+        res.json({success:true , msg:'Your presence will be awaited'});
 
     } catch (error) {
         console.log(error)
@@ -137,7 +138,7 @@ exports.viewGuest = async(req,res)=>{
 
 exports.viewEventGuests = async(req,res)=>{
     try {
-        const guest = await guestModel.find({eventid:req.params.id});
+        const guest = await guestModel.find({eventid:req.params.id}).populate('eventid');
         if(!guest){
             res.status(404).send({success:false,msg:'Not Found'});
         }
