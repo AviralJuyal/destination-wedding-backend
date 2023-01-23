@@ -1,14 +1,17 @@
 const eventModel = require('../models/eventModel');
 
 exports.addEvent= async(req,res)=>{
+    console.log(req.body)
     try {
-        await eventModel.create({...req.body})
+        await eventModel.create({...req.body ,eventType:'marriage'})
         res.status(200).json({success:true , msg: "Event Added" });
     } catch (error) {
         console.error(error.message);
         res.status(500).send({success:false , msg:"some error occured"});
     }
 }
+
+
 
 exports.viewEvent = async(req,res)=>{
     try {

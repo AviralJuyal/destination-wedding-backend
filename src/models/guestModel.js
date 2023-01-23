@@ -11,10 +11,6 @@ const guest = mongoose.Schema({
      type:Number
     },
 
-    name:{
-        type:String,
-     //    required:true,
-    },
     email:{
         type:String,
      //    required:true,
@@ -23,8 +19,16 @@ const guest = mongoose.Schema({
         type:Number,
      //    required:true,
     },
-    namesOfPeople:[{
-        type:String,
+   
+   peopleDetails:[{
+     name:{
+          type:String,
+     },
+     adhaar:{
+          videoUrl:{
+               type:String
+          }
+     }
    }],
 
    travelItinerary:{
@@ -38,6 +42,9 @@ const guest = mongoose.Schema({
    },
    driverStay:{
         type:Boolean,
+   },
+   rsvp:{
+     type:Boolean
    }
 });
 // number of people , names of people , your travel itenary along with tickets , photoIds , driver accompanying stay req?

@@ -1,6 +1,6 @@
 const guestModel = require('../models/guestModel');
 const multer = require("multer");
-const path = require('path');
+// const path = require('path');
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 
@@ -9,6 +9,7 @@ const s3 = new AWS.S3({
     accessKeyId: process.env.ACCESS_KEY,
     secretAccessKey: process.env.SECRET_ACCESS_KEY
   })
+
 
   const videoUpload = multer({
    
@@ -22,13 +23,15 @@ const s3 = new AWS.S3({
 }
 })
 
-const uploadToS3 = async (fileData,fileName) =>{
 
-    console.log("FILEDATA", fileData);
+
+const uploadToS3 = async (fileData,fileName, folder) =>{
+
+    // console.log("FILEDATA", fileData);
 
   const params = {
     Bucket: process.env.BUCKET_NAME,
-    Key: `adhaar/${fileName}`,
+    Key: `${folder}/${fileName}`,
     Body: fileData.buffer,
   }
 
@@ -44,15 +47,18 @@ s3.upload(params, (err, data) => {
     return videoUrl
 }
 
-exports.adhaarUpload= (videoUpload.single('video'), (req, res) => {
-
+ 
+exports.adhaarUpload = (req, res) => {
+console.log(req.file)
     const newId = uuidv4();
-    uploadToS3(req.file, newId);
-    res.send({videoUrl:`https://weddingkj.s3.ap-south-1.amazonaws.com/adhaar/${newId}`});
+    uploadToS3(req.file, newId, req.params.folder);
+    res.send({videoUrl:`https://weddingkj.s3.ap-south-1.amazonaws.com/${req.params.folder}/${newId}`});
   
-  }, (error, req, res, next) => {
-     res.status(400).send({ error: error.message })
-  })
+  }
+//   , (error, req, res, next) => {
+//      res.status(400).send({ error: error.message })
+//   }
+
 
 exports.addGuest= async(req,res)=>{
     try {
@@ -66,15 +72,15 @@ exports.addGuest= async(req,res)=>{
 
 exports.editGuest = async(req,res)=>{
     try {
-        let guest = await guestModel.findById(req.params.id);
+        let guest = await guestModel.find({eventid:req.params.id});
         if(!guest)return res.status(404).send({success:false , msg:"Not Found !!"});
         
         guest = await guestModel.find({phoneNumber:req.body.phoneNumber});
         if(!guest)return res.status(404).send({success:false , msg:"Phone Number Not Found !!"});
         
-        const { name , email , numberOfPeople , namesOfPeople , travelItinerary , photoId , driverStay , driver}= req.body;
+        const { email , numberOfPeople  ,peopleDetails, travelItinerary , photoId , driverStay , driver}= req.body;
 
-        guest = await guestModel.findByIdAndUpdate(req.params.id ,{name , email , numberOfPeople , travelItinerary , photoId , driver , namesOfPeople , driverStay } );
+        guest = await guestModel.findOneAndUpdate({eventid:req.params.id },{peopleDetails, email , numberOfPeople , travelItinerary:travelItinerary.videoUrl , photoId , driver  , driverStay } );
         res.json({success:true , guest});
 
     } catch (error) {
@@ -129,6 +135,21 @@ exports.viewGuest = async(req,res)=>{
     }
 }
 
+exports.viewEventGuests = async(req,res)=>{
+    try {
+        const guest = await guestModel.find({eventid:req.params.id});
+        if(!guest){
+            res.status(404).send({success:false,msg:'Not Found'});
+        }
+        return res.json({success:true ,guest});
+    } catch (error) {
+        console.error(error.message);
+        success =false;
+      res.status(500).send({success , msg:"some error occured"}); 
+    }
+}
+
+
 exports.deleteGuest = async(req,res)=>{
     try {
         let guest = await guestModel.findById(req.params.id);
@@ -141,6 +162,17 @@ exports.deleteGuest = async(req,res)=>{
         console.log(error);
         success =false;
         res.status(500).send(success , "some error occured"); 
+    }
+}
+exports.verifyByPhone = async(req,res)=>{
+    try {
+        let event = await guestModel.findOne(req.body);
+        if(!event)return res.status(404).send({success:false, msg:"Please Contact the Owner for more details"});
+        res.json({success:true , msg:'Please Verify More Details',res:event});
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({success:false , msg:"some error occured"});
     }
 }
 

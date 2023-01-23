@@ -23,9 +23,10 @@ app.get('/', (req, res) => {
 app.use("/api/user", require("./src/routes/userRoutes"));
 app.use("/api/event", require("./src/routes/eventRoutes"));
 app.use("/api/guest", require("./src/routes/guestRoutes"));
+app.use("/api/contact", require("./src/routes/mailRoutes"));
 
 
-app.get('/*', (req, res) => {
+app.use('/*', (req, res) => {
   res.send('invalid Request')
 })
 

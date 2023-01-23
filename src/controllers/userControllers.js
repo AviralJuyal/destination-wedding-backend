@@ -65,7 +65,6 @@ exports.loginUser = async (req,res)=>{
 }
 exports.User = async (req,res)=>{
     try {
-        console.log(req.user.id)
         let user = await userModel.findById(req.user.id);
         if(!user) return res.status(404).send({success:false, msg:'user not found!'})
         res.json({success:true ,  user})
