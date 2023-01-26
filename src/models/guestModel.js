@@ -44,6 +44,7 @@ const guest = mongoose.Schema({
         type:Boolean,
    },
    rsvp:{
+     default:false,
      type:Boolean
    }
 });

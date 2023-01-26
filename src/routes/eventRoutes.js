@@ -1,5 +1,5 @@
 const express = require("express");
-const { addEvent , editEvent , deleteEvent , viewEvent , viewAllEvent} = require("../controllers/eventControllers");
+const { addEvent , editEvent , deleteEvent , viewEvent , viewAllEvent, downloadCsv} = require("../controllers/eventControllers");
 const { fetchuser} = require("../middleware/fetchuser");
 const router = express.Router();
 
@@ -17,6 +17,10 @@ router.route('/edit/:id')
 
 router.route('/delete/:id')
         .delete(fetchuser,deleteEvent)
+
+router.route('/downloadcsv/:id')
+        .get(downloadCsv)
+        
 
  
 module.exports = router;
