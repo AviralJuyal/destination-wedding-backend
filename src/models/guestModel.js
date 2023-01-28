@@ -49,7 +49,7 @@ const guest = mongoose.Schema({
    },
 
 
-   numberOfChildren:{
+   numberOfChild:{
      type:Number,
    },
    numberOfAdult:{

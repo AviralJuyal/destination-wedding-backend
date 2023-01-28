@@ -79,15 +79,16 @@ exports.editGuest = async(req,res)=>{
         let guest = await guestModel.find({eventid:req.params.id,phoneNumber:req.body.phoneNumber});
         if(!guest)return res.status(404).send({success:false , msg:"Phone Number Not Found !!"});
         
-        const { email , numberOfPeople  ,peopleDetails, travelItinerary , photoId , driverStay , driver  , numberOfChildren , numberOfAdult , travelPlan , pickupReq , driverNumber , driverName , arrival , departure }= req.body;
+        const { email , numberOfPeople  ,peopleDetails, travelItinerary , photoId , driverStay , driver  , numberOfChild , numberOfAdult , travelPlan , pickupReq , driverNumber , driverName , arrival , departure }= req.body;
 
-        guest = await guestModel.findOneAndUpdate({eventid:req.params.id,phoneNumber:req.body.phoneNumber},{peopleDetails, email ,rsvp : true, numberOfPeople , travelItinerary:travelItinerary.videoUrl , photoId , driver  , driverStay, numberOfChildren , numberOfAdult , travelPlan , pickupReq , driverNumber , driverName  ,arrival, departure  } );
+        guest = await guestModel.findOneAndUpdate({eventid:req.params.id,phoneNumber:req.body.phoneNumber},{peopleDetails, email ,rsvp : true, numberOfPeople , travelItinerary:travelItinerary.videoUrl , photoId , driver  , driverStay, numberOfChild , numberOfAdult , travelPlan , pickupReq , driverNumber , driverName  ,arrival, departure  } );
         res.json({success:true , msg:'Your presence will be awaited'});
 
     } catch (error) {
         console.log(error);
         res.status(500).send({success:false, msg:"some error occured"});
     }
+
 }
 
 exports.editGuestAdmin = async(req,res)=>{
