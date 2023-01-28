@@ -46,7 +46,37 @@ const guest = mongoose.Schema({
    rsvp:{
      default:false,
      type:Boolean
+   },
+
+
+   numberOfChildren:{
+     type:Number,
+   },
+   numberOfAdult:{
+     type:Number,
+   },
+   travelPlan:{
+     type:String,
+   },
+   pickupReq:{
+     type:Boolean,
+   },
+   driverNumber:{
+     type:Number,
+   },
+   driverName:{
+    type:String,
+   },
+   arrival:{
+    type:String,
+   },
+   departure:{
+    type:String,
    }
+
 });
+
+// driverName , arrival , departure
+// numberOfChildren , numberOfAdult , travelPlan , pickupReq , driverNumber 
 // number of people , names of people , your travel itenary along with tickets , photoIds , driver accompanying stay req?
 module.exports = mongoose.model('guest', guest);

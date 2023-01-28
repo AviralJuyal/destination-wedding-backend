@@ -29,6 +29,10 @@ const event = mongoose.Schema({
     eventDate:{
         type:String,
     },
+    ourEvent:{
+        type:Boolean,
+        default:false,
+    }
 
 });
 
