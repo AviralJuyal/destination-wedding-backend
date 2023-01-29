@@ -12,7 +12,7 @@ try {
             pass: organization_password 
         }
     });
-    
+
     // Structure of mail
     let mailOptions = {
         from: organization_email, 
