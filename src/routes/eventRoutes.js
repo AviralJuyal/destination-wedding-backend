@@ -1,5 +1,5 @@
 const express = require("express");
-const { addEvent , editEvent , deleteEvent , viewEvent , viewAllEvent, downloadCsv,getTrueEvent} = require("../controllers/eventControllers");
+const { addEvent , editEvent , deleteEvent , viewEvent , viewAllEvent, downloadCsv,getTrueEvent, subEventImageUpload, subEventImageView} = require("../controllers/eventControllers");
 const { fetchuser} = require("../middleware/fetchuser");
 const router = express.Router();
 
@@ -17,6 +17,10 @@ router.route('/viewTrue')
 
 router.route('/edit/:id')
         .put(fetchuser,editEvent)
+router.route('/editSubEvent')
+        .put(subEventImageUpload)
+router.route('/subEvent/:id')
+        .get(subEventImageView)
 
 router.route('/delete/:id')
         .delete(fetchuser,deleteEvent)
