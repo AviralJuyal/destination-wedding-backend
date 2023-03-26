@@ -24,6 +24,8 @@ app.use("/api/user", require("./src/routes/userRoutes"));
 app.use("/api/event", require("./src/routes/eventRoutes"));
 app.use("/api/guest", require("./src/routes/guestRoutes"));
 app.use("/api/contact", require("./src/routes/mailRoutes"));
+app.use("/api/notification", require("./src/routes/notificationRoute"));
+app.use("/api/shop", require("./src/routes/shopRoutes"));
 
 
 app.use('/*', (req, res) => {

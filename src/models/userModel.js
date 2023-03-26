@@ -8,14 +8,28 @@ const user = mongoose.Schema({
     email:{
         type:String
     },
+    phoneNumber:{
+        type:Number
+    },
+    address:[{
+        location:String,
+        state:String,
+        landmark:String,
+        city:String,
+        pincode:String,
+        addressType:{
+            type:String,
+            enums:['home', "office", "other"]
+        }
+    }],
     password:{
         type: String,
         required:true,
     },
     userType:{
         type: String,
-        default:'admin',
-        enum:['admin']
+        default:'user',
+        enum:['admin','user']
     }
 },{
 timestamps:true

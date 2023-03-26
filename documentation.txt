@@ -4,54 +4,42 @@ headers : auth-token
 body : {
     event : {
         eventOrganiser:{
-        type:String,
-        // required:true,
-    },
-    tentativeGuest:{
-        type:Number,
-        required:true,
-    },
-    eventType:{
-        type: String,
-        enum:['marriage']
-    },
-    card:{
-        type:String,
-    },
-    graphic:{
-        type:String,
-    },
-    desc:{
-        type:String,
-    },
-    title:{
-        type:String,
-    },
-    eventDate:{
-        type:String,
-    },
-    ourEvent:{
-        type:Boolean,
-    }
+            type:String,
+        },
+        tentativeGuest:{
+            type:Number,
+            required:true,
+        },
+        card:{
+            type:String,
+        },
+        graphic:{
+            type:String,
+        },
+        desc:{
+            type:String,
+        },
+        title:{
+            type:String,
+        },
+        eventDate:{
+            type:String,
+        },
+        ourEvent:{
+            type:Boolean,
+        }
     },
     subEvent : [
-    {
-      
-    card:{
-        type:String,
-    },
-    pics:[{
-        type:String,
-    }],
-    desc:{
-        type:String,
-    },
-    title:{
-        type:String,
-    },
-    eventDate:{
-        type:String,
-    },
-        }
-    ]
+                    { 
+                        card:{
+                            type:String,
+                        },
+                        title:{
+                            type:String,
+                        },
+                        eventDate:{
+                            type:String,
+                        },
+                    }
+                ]
 }

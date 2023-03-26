@@ -78,3 +78,32 @@ exports.User = async (req,res)=>{
 
     }
 }
+
+exports.updateUser = async(req , res ) =>{
+    try {
+        let user = await userModel.findById(req.user.id);
+        if(!user) return res.status(404).send({success:false , msg: "user not found !"});
+        user = await userModel.findByIdAndUpdate(req.user.id , req.body);
+        res.json({success:true ,  msg: "user updated ! "});
+    } catch (error) {
+        console.log(error);
+        success=false;
+        res.status(500).send(success , "some error occured");
+    }
+}
+
+exports.updateAddress = async(req,res)=>{
+    try {
+        let user = await userModel.findById(req.user.id);
+        if(!user) return res.status(404).send({success:false , msg: "user not found !"});
+        let a = user.address;
+        a = user.address.filter(e => e.addressType !== req.body.addressType)
+        a.push(req.body)
+        user = await userModel.findByIdAndUpdate(req.user.id , {address:a});
+        res.json({success:true ,  msg: "user's address updated!"});
+    } catch (error) {
+        console.log(error);
+        success=false;
+        res.status(500).send(success , "some error occured");
+    }
+}
