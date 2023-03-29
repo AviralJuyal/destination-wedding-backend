@@ -23,6 +23,17 @@ exports.updateProduct = async(req,res,next) => {
         res.status(500).send({ success: false, msg: "some error occured!" });
     }
 }
+exports.getProductById = async(req,res,next) => {
+    const {id} = req.params
+    try {
+        let productToFind = await productModel.findById(id)
+        if(!productToFind) return res.status(404).send({success:false, msg:'product not found!'})
+        res.status(200).send({success:true, msg:"product updated successfully!", product: productToFind})
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ success: false, msg: "some error occured!" });
+    }
+}
 exports.deleteProduct = async(req,res,next) => {
     const {id} = req.params
     try {
