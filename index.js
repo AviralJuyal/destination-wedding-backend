@@ -26,6 +26,7 @@ app.use("/api/guest", require("./src/routes/guestRoutes"));
 app.use("/api/contact", require("./src/routes/mailRoutes"));
 app.use("/api/notification", require("./src/routes/notificationRoute"));
 app.use("/api/shop", require("./src/routes/shopRoutes"));
+app.use("/api/order", require("./src/routes/orderRoutes"));
 app.use("/api/destination", require("./src/routes/destinationRoutes"));
 app.use("/api/invitationResponse", require("./src/routes/invitationResponseRoutes"));
 

@@ -7,7 +7,7 @@ router.route('/add')
         .post(fetchuser,addEvent)
 
 router.route('/viewall')
-        .get(fetchuser,viewAllEvent)
+        .get(viewAllEvent)
 
 router.route('/view/:id')
         .get(viewEvent)

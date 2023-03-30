@@ -20,7 +20,7 @@ const destination = mongoose.Schema(
         type:String,
     },
     phoneNumber:{
-        type:Number,
+        type:String,
     },
     website:{
         type:String,

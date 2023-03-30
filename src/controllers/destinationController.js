@@ -13,9 +13,10 @@ exports.addDest = async (req, res) => {
   } catch (error) {
         console.log(error);
         success = false;
-        res.status(500).send(success, "some error occured");
+        res.status(500).send({success, msg:"some error occured"});
   }
 };
+
 
 exports.viewAllDest= async(req,res)=>{
     try {
@@ -28,7 +29,7 @@ exports.viewAllDest= async(req,res)=>{
     } catch (error) {
         console.log(error);
         success = false;
-        res.status(500).send(success, "some error occured");
+        res.status(500).send({success, msg:"some error occured"});
     }
 }
 
@@ -43,7 +44,7 @@ exports.viewDest = async(req,res)=>{
     } catch (error) {
         console.log(error);
         success = false;
-        res.status(500).send(success, "some error occured");
+        res.status(500).send({success, msg:"some error occured"});
     }
 }
 
@@ -59,7 +60,7 @@ exports.deleteDest = async(req,res)=>{
     } catch (error) {
         console.log(error);
         success = false;
-        res.status(500).send(success, "some error occured");
+        res.status(500).send({success, msg:"some error occured"});
     }
 }
 
@@ -78,6 +79,6 @@ exports.editDest = async(req,res)=>{
     } catch (error) {
         console.log(error);
         success = false;
-        res.status(500).send(success, "some error occured");
+        res.status(500).send({success, msg:"some error occured"});
     }
 }

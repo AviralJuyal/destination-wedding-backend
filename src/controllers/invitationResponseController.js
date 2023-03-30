@@ -21,8 +21,16 @@ exports.addResp = async(req,res)=>{
         let mailOptions = {
             from: organization_email, 
             to: ` ${organization_email },${req.body.email}`, 
-            subject: 'Contact us form response',
-            html: ` <p>Name: ${req.body.name} <br> Email: ${req.body.email}<br>  Phone Number : ${req.body.phoneNumber} <br> Message: ${req.body.message} </p> <br><br><h2>We will contact you as soon as possible! Thanks for your interest!</h2>`
+            subject: 'Invitation Response',
+            html: ` <p>Name: ${req.body.name} <br> Email: ${req.body.email}<br>  Phone Number : ${req.body.phoneNumber} <br> Message: ${req.body.message} </p> <br><br><h2>Your request for creating your own personalized invitation has been recorded.
+            We will be getting back to you shortly!</h2> <br>
+            Call us at this number :<a
+            href="tel:+919911987961"
+            rel="noopener noreferrer">+919911987961</a> <br>
+            <p>
+            Regards. <br>
+            Planmywedding.co.in <br>
+            Page3Events</p>`
         };
         
         // sending mail
