@@ -24,6 +24,12 @@ const destination = mongoose.Schema(
     },
     website:{
         type:String,
+    },
+    facilities:{
+      type:String,
+    },
+    reviews:{
+      type:String,
     }
   },
   {
