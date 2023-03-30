@@ -3,12 +3,12 @@ const { orderDelete , orderUpdate , orderDetail ,ordersOfUser ,createOrder } = r
 const { fetchuser} = require("../middleware/fetchuser");
 const router = express.Router();
 
-router.route('/order/:id')
+router.route('/:id')
         .put(orderUpdate)
         .delete(orderDelete)
         .get(orderDetail)
 
-router.route('/order')
+router.route('/')
         .get(fetchuser , ordersOfUser)
         .post(createOrder)
 
