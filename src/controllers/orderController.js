@@ -3,29 +3,29 @@ const userModel = require("../models/userModel");
 
 exports.createOrder = async (req,res)=>{
     try {
-        let order = orderModel.create(req.body);
+        let order = await orderModel.create(req.body);
         res.status(200).send({success: true , msg:"order created successfully !"});
     } catch (error) {
         console.log(error)  
-        success =false;
-        res.status(500).send(success , "some error occured"); 
+        res.status(500).send({success:false , msg:"some error occured"}); 
+ 
     }
 }
 
 exports.ordersOfUser = async (req, res)=>{
     try {
         //user not found
-        let user = userModel.findById(req.user.id);
+        let user = await userModel.findById(req.user.id);
         if(!user) return res.status(404).send({success:false , msg: "user not found"});
-
-        let orders = orderModel.find({user:req.user.id});
-        if(!orders) return res.status(404).send({success:false , msg: "orders not found"});
-
+        
+        let orders = await orderModel.find({user:req.user.id});
+        // console.log(orders)
         return res.status(200).send({success:true , orders  });
+        
     } catch (error) {
         console.log(error)  
-        success =false;
-        res.status(500).send(success , "some error occured"); 
+        
+        res.status(500).send({success:false , msg:"some error occured"}); 
     }
 }
 
@@ -37,8 +37,8 @@ exports.orderDetail = async (req, res)=>{
         return res.status(200).send({success:true , order  });
     } catch (error) {
         console.log(error)  
-        success =false;
-        res.status(500).send(success , "some error occured"); 
+        
+        res.status(500).send({success:true , msg:"some error occured"}); 
     }
 }
 
@@ -51,8 +51,8 @@ exports.orderUpdate = async(req , res)=>{
         res.status(200).send({success:true , msg: "orders updated" });
     } catch (error) {
         console.log(error)  
-        success =false;
-        res.status(500).send(success , "some error occured"); 
+        res.status(500).send({success:true , msg:"some error occured"}); 
+
     }
 }
 
@@ -66,7 +66,6 @@ exports.orderDelete = async(req, res) => {
 
     } catch (error) {
         console.log(error)  
-        success =false;
-        res.status(500).send(success , "some error occured"); 
+        res.status(500).send({success:true , msg:"some error occured"});  
     }
 }

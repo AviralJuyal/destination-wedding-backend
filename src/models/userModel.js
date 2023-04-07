@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const user = mongoose.Schema({
-    username:{
+    name:{
         type:String,
         required:true
     },
@@ -22,6 +22,9 @@ const user = mongoose.Schema({
             enums:['home', "office", "other"]
         }
     }],
+    verified:{
+        type:Boolean,
+    },
     password:{
         type: String,
         required:true,
