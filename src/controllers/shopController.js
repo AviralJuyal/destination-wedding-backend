@@ -49,14 +49,39 @@ exports.deleteProduct = async(req,res,next) => {
 exports.getProducts = async (req,res,next) => {
     try{
         let colour="",category="";
+        let col = null;
         //filter selection
-        if(req.query.colour) colour= req.query.colour;
+        if(req.query.colour) {
+            colour= req.query.colour;
+            col = colour.split(',');
+        }
+        // console.log(col)
         if(req.query.category) category= req.query.category;
-        let products = await productModel.find({
-            category:{ $regex : category , $options:'i' },
-            colour:{ $regex : colour , $options:'i' }
+        let products=new Set();
+        let temp='';
+        if(!col){
+            products = await productModel.find();
+        }
+        else{
+            for(e in col){
+                temp = await productModel.find({
+                    category:{ $regex : category , $options:'i' },
+                    colour:{ $regex : col[e] , $options:'i' }
+                })
+                if(temp.length>0)
+                    temp.forEach(e=>{
+                        products.add(e);
+                    }) 
+            }
+        }
+
+        let arr = [];
+        products.forEach(e=>{
+            arr.push(e);
         })
-        res.status(200).send({success:true, msg:"items fetched successfully!",products})
+        
+        
+        res.status(200).send({success:true, msg:"items fetched successfully!",products:arr})
     } catch (error) {
         console.log(error);
         res.status(500).send({ success: false, msg: "some error occured!" });

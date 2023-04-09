@@ -23,7 +23,7 @@ const products = mongoose.Schema({
     }],
     colour:[{
         type:String,
-        enums:['Yellow', 'red', 'pink', 'orange', 'green', 'blue', 'gold', 'silver', 'purple', 'white']
+        enums:['yellow', 'red', 'pink', 'orange', 'green', 'blue', 'gold', 'silver', 'purple', 'white','black']
     }],
     ratings:Number
 },{
