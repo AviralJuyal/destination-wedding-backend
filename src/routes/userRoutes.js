@@ -15,7 +15,7 @@ router.route('/verify/:id')
 router.route('/')
         .get(fetchuser,User)
         .put(fetchuser ,updateUser)
-        
+
 router.route('/updateAddress')
         .put(fetchuser , updateAddress)
 

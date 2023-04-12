@@ -34,6 +34,7 @@ exports.getProductById = async(req,res,next) => {
         res.status(500).send({ success: false, msg: "some error occured!" });
     }
 }
+
 exports.deleteProduct = async(req,res,next) => {
     const {id} = req.params
     try {
@@ -46,6 +47,7 @@ exports.deleteProduct = async(req,res,next) => {
         res.status(500).send({ success: false, msg: "some error occured!" });
     }
 }
+
 exports.getProducts = async (req,res,next) => {
     try{
         let colour="",category="";
@@ -82,6 +84,23 @@ exports.getProducts = async (req,res,next) => {
         
         
         res.status(200).send({success:true, msg:"items fetched successfully!",products:arr})
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ success: false, msg: "some error occured!" });
+    }
+}
+
+exports.idProducts = async(req,res) => {
+    try {
+        let ids = req.body.id;
+        let arr = [];
+        for(e of ids){
+            let prod = await productModel.findById(e)
+                arr.push(prod);
+        }
+
+        res.status(200).send({success:true, msg:"items fetched successfully!",products:arr})
+        
     } catch (error) {
         console.log(error);
         res.status(500).send({ success: false, msg: "some error occured!" });
