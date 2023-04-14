@@ -18,7 +18,7 @@ exports.ordersOfUser = async (req, res)=>{
         let user = await userModel.findById(req.user.id);
         if(!user) return res.status(404).send({success:false , msg: "user not found"});
         
-        let orders = await orderModel.find({user:req.user.id});
+        let orders = await orderModel.find({user:req.user.id}).populate('user');
         // console.log(orders)
         return res.status(200).send({success:true , orders  });
         

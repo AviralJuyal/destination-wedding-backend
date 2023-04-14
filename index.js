@@ -29,6 +29,7 @@ app.use("/api/shop", require("./src/routes/shopRoutes"));
 app.use("/api/order", require("./src/routes/orderRoutes"));
 app.use("/api/destination", require("./src/routes/destinationRoutes"));
 app.use("/api/invitationResponse", require("./src/routes/invitationResponseRoutes"));
+app.use("/api/payment", require("./src/routes/payment"));
 
 
 app.use('/*', (req, res) => {

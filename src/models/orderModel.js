@@ -26,7 +26,11 @@ const order = mongoose.Schema({
     DeliveryDate:{
         type:Date
     },
-    payment:String,
+    payment:{
+        type:String,
+        enums:['done','notdone'],
+        default:'notdone'
+    },
     deliveryStatus:{
         type:String,
         default:'orderConfirmed',
