@@ -92,15 +92,15 @@ exports.getProducts = async (req,res,next) => {
 
 exports.idProducts = async(req,res) => {
     try {
-        let ids = req.body.id;
+        const {id} = req.body;
         let arr = [];
-        for(e of ids){
-            let prod = await productModel.findById(e)
+        if(id.length>0){
+            for(e of id){
+                let prod = await productModel.findById(e)
                 arr.push(prod);
+            }
         }
-
-        res.status(200).send({success:true, msg:"items fetched successfully!",products:arr})
-        
+        res.status(200).send({success:true, msg:"items fetched successfully!",products:arr});
     } catch (error) {
         console.log(error);
         res.status(500).send({ success: false, msg: "some error occured!" });
